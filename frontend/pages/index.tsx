@@ -12,7 +12,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar></Navbar>
-      <main></main>
+      <main>
+        <div className={styles['landing-page-image']}></div>
+      </main>
     </>
   );
 }

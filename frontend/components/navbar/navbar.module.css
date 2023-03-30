@@ -13,9 +13,17 @@
 
 .menu {
   position: absolute;
-  margin-top: 4rem;
-  left: -100%;
+  width: 100vw;
+  height: 100vh;
+  top: -100%;
+  background-color: blue;
+  transition: 0.4s;
 }
+
+.active-menu {
+  top: 0;
+}
+
 .menu-button,
 .search-button {
   position: absolute;
@@ -27,13 +35,10 @@
   left: 1rem;
 }
 
-.active-menu {
-  left: 0;
-}
 .search-button {
   right: 1rem;
 }
 
-.inactive {
+.invisible {
   display: none;
 }

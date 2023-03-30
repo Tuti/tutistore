@@ -16,7 +16,7 @@
 html,
 body {
   background-color: ivory;
-  /* overflow-x: hidden; */
+  min-height: 100vh;
 }
 
 button {
