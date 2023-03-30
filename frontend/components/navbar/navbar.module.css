@@ -1,14 +1,19 @@
 .nav-container {
+  position: fixed;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 4rem;
-  background-color: ivory;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .branding {
   font-size: 2rem;
   color: red;
+  font-weight: bold;
+  font-style: italic;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .menu {
@@ -44,7 +49,7 @@
 }
 
 .search-form {
-  background-color: blue;
+  background-color: ivory;
   position: absolute;
   display: flex;
   width: 100%;
@@ -54,11 +59,12 @@
 }
 
 .search-input {
-  /* padding: 1rem; */
-  margin: 1rem;
-  width: auto;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  width: 100%;
   border-radius: 5px;
   border: 2px black solid;
+  font-size: 1.25rem;
 }
 
 .active-search-form {

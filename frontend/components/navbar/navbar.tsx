@@ -36,11 +36,11 @@ export default function Navbar(props: props) {
       >
         <Menu
           className={menuActive ? `${styles['invisible']}` : ''}
-          sx={{ fontSize: '2rem', color: 'black' }}
+          sx={{ fontSize: '2rem', color: 'white' }}
         />
         <Close
           className={menuActive ? '' : `${styles['invisible']}`}
-          sx={{ fontSize: '2rem', color: 'black' }}
+          sx={{ fontSize: '2rem', color: 'white' }}
         />
       </button>
       <div className={styles.branding}>{props.storeName}</div>
@@ -58,9 +58,22 @@ export default function Navbar(props: props) {
           menuActive ? `${styles['invisible']}` : `${styles['search-button']}`
         }
         onClick={handleSearchActive}
-        onBlur={handleSearchActive}
+        // onBlur={() => {
+        //   if (!searchActive) {
+        //     return;
+        //   } else {
+        //     setSearchActive((searchActive) => !searchActive);
+        //   }
+        // }}
       >
-        <Search sx={{ fontSize: '2rem', color: 'black' }} />
+        <Search
+          className={searchActive ? `${styles['invisible']}` : ''}
+          sx={{ fontSize: '2rem', color: 'white' }}
+        />
+        <Close
+          className={searchActive ? '' : `${styles['invisible']}`}
+          sx={{ fontSize: '2rem', color: 'black' }}
+        />
       </button>
     </nav>
   );

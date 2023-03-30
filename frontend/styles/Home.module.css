@@ -1,0 +1,14 @@
+.landing-page-img {
+  display: flex;
+  /* height: calc(100vh - 4rem); */
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.section-container {
+  padding: 1rem;
+}
+
+.section-title {
+}
