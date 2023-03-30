@@ -15,8 +15,8 @@
   position: absolute;
   width: 100vw;
   height: 100vh;
-  top: -100%;
-  background-color: blue;
+  top: calc(0px - 100vh);
+  background-color: gray;
   transition: 0.4s;
 }
 
@@ -41,4 +41,26 @@
 
 .invisible {
   display: none;
+}
+
+.search-form {
+  background-color: blue;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  min-height: 4rem;
+  top: calc(0px - 4rem);
+  transition: 0.4s;
+}
+
+.search-input {
+  /* padding: 1rem; */
+  margin: 1rem;
+  width: auto;
+  border-radius: 5px;
+  border: 2px black solid;
+}
+
+.active-search-form {
+  top: 0;
 }
