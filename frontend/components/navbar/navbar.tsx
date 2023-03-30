@@ -1,5 +1,5 @@
 import styles from './navbar.module.css';
-import { Menu, Search } from '@mui/icons-material';
+import { Menu, Search, Close } from '@mui/icons-material';
 import { useState } from 'react';
 
 export default function Navbar() {
@@ -13,13 +13,22 @@ export default function Navbar() {
 
   return (
     <nav className={`${styles['nav-container']}`}>
-      <button
-        className={`${styles['menu-button']}`}
-        onClick={() => {
-          console.log('clicked');
-        }}
+      <div
+        className={
+          menuActive
+            ? `${styles['menu']} ${styles['active-menu']}`
+            : `${styles['menu']}`
+        }
       >
-        <Menu sx={{ fontSize: '2rem', color: 'black' }}></Menu>
+        menu
+      </div>
+      <button className={`${styles['menu-button']}`} onClick={handleMenuActive}>
+        <div className={menuActive ? `${styles['inactive']}` : ''}>
+          <Menu sx={{ fontSize: '2rem', color: 'black' }}></Menu>
+        </div>
+        <div className={menuActive ? '' : `${styles['inactive']}`}>
+          <Close sx={{ fontSize: '2rem', color: 'black' }}></Close>
+        </div>
       </button>
       <div className={styles.branding}>{storeName}</div>
       <button className={`${styles['search-button']}`}>
