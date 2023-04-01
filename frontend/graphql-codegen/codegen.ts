@@ -1,7 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: 'https://tutitechstore.myshopify.com/api/2023-01/graphql',
+  schema: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
   documents: ['src/**/*.tsx'],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
