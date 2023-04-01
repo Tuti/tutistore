@@ -2,10 +2,10 @@ import styles from './navbar.module.css';
 import { Menu, Search, Close } from '@mui/icons-material';
 import { useState } from 'react';
 
-interface props {
+interface Props {
   storeName: string;
 }
-export default function Navbar(props: props) {
+export default function Navbar(props: Props) {
   const activeMenuStyle = `${styles['menu']} ${styles['active-menu']}`;
   const activeSearchStyle = `${styles['search-form']} ${styles['active-search-form']}`;
 

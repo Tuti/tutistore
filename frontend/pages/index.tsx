@@ -1,12 +1,15 @@
-/*** Styles ***/
+/* eslint-disable @next/next/no-img-element */
+
+/** Styles **/
 import styles from '@/styles/Home.module.css';
 
-/***  Next.js imports ***/
+/**  Next.js imports **/
 import Head from 'next/head';
 import Image from 'next/image';
 
-/*** Components ***/
+/** Components **/
 import Navbar from '@/components/navbar/navbar';
+import ProductSection from '@/components/product-section/productSection';
 
 /***  Constants ***/
 const storeName: string = 'Hype Club';
@@ -24,13 +27,12 @@ export default function Home() {
       <main>
         {/* For non-mobile view want to add 3 images akin to pillars  */}
         <img
+          // probably need to change to next/Image
           className={styles['landing-page-img']}
           alt="landing page"
           src={'/air-jordan-orange.jpg'}
         />
-        <section className={styles['section-container']}>
-          <h2 className={styles['section-title']}>New Releases</h2>
-        </section>
+        <ProductSection sectionName={'New Releases'}></ProductSection>
       </main>
     </>
   );
