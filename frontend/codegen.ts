@@ -15,10 +15,10 @@ const config: CodegenConfig = {
       },
     },
   ],
-  documents: ['components/**/*.tsx'],
+  documents: ['components/**/*.tsx', 'components/**/*.ts'],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
-    './src/gql/': {
+    './graphql/generated/': {
       preset: 'client',
     },
   },

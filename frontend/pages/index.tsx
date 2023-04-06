@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 /** Components **/
 import Navbar from '@/components/navbar/navbar';
-import ProductSection from '@/components/product-section/productSection';
+import ProductCollection from '@/components/product-collection/productCollection';
 
 /***  Constants ***/
 const storeName: string = 'Hype Club';
@@ -32,7 +32,10 @@ export default function Home() {
           alt="landing page"
           src={'/air-jordan-orange.jpg'}
         />
-        <ProductSection sectionName={'New Releases'}></ProductSection>
+        <ProductCollection
+          collectionName={'New Releases'}
+          numberOfItems={4}
+        ></ProductCollection>
       </main>
     </>
   );
