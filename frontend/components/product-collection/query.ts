@@ -53,6 +53,7 @@ export const getCollectionByHandleQueryDoc = graphql(/* GraphQL */ `
             title
             handle
             description
+            vendor
             priceRange {
               minVariantPrice {
                 amount
