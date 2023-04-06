@@ -5,7 +5,6 @@ const name = 'X-Shopify-Storefront-Access-Token';
 const token = 'dfad09dd39fe0c15a25c41b7ea00daf6';
 
 const config: CodegenConfig = {
-  // schema: 'schema.json',
   schema: [
     {
       'https://tutitechstore.myshopify.com/api/2023-01/graphql.json': {
@@ -16,10 +15,10 @@ const config: CodegenConfig = {
       },
     },
   ],
-  documents: ['graphQL/**/*.tsx'],
+  documents: ['components/**/*.tsx'],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
-    './graphQL/generated/': {
+    './src/gql/': {
       preset: 'client',
     },
   },

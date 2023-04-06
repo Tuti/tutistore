@@ -1,8 +1,6 @@
 import styles from './product-section.module.css';
-import { useGraphQL } from '@/graphQL/use-graphql';
-import { graphql } from '../../graphQL/generated/gql';
-import { useQuery } from '@tanstack/react-query';
-import request from 'graphql-request';
+import { useGraphQL } from '@/src/use-gql';
+import { graphql } from '../../src/gql/gql';
 
 interface Props {
   sectionName: string;
@@ -32,16 +30,8 @@ function fetchData() {
 }
 
 export default function ProductSection(props: Props) {
-  const { data } = useQuery(['shopname'], async () => {
-    request(
-      'https://tutitechstore.myshopify.com/api/2023-01/graphql.json',
-      shopNameQueryDoc,
-      {},
-      {
-        'X-Shopify-Storefront-Access-Token': 'dfad09dd39fe0c15a25c41b7ea00daf6',
-      }
-    );
-  });
+  const data = useGraphQL(shopNameQueryDoc);
+
   return (
     <section className={styles['product-section']}>
       <h2 className={styles['section-title']}>{props.sectionName}</h2>
