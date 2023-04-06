@@ -1,6 +1,6 @@
 import styles from './product-section.module.css';
-import { useGraphQL } from '@/graphQL/use-graphql';
-import { graphql } from '../../graphQL/generated/gql';
+import { useGraphQL } from '@/src/use-gql';
+import { graphql } from '../../src/gql/gql';
 
 interface Props {
   sectionName: string;
@@ -30,13 +30,14 @@ function fetchData() {
 }
 
 export default function ProductSection(props: Props) {
-  const data = useGraphQL(shopNameQueryDoc, null);
+  const data = useGraphQL(shopNameQueryDoc);
+
   return (
     <section className={styles['product-section']}>
       <h2 className={styles['section-title']}>{props.sectionName}</h2>
       <button
         onClick={() => {
-          fetchData();
+          console.log({ data });
         }}
       >
         click me for data
