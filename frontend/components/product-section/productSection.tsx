@@ -1,13 +1,14 @@
 import styles from './product-section.module.css';
 import { useGraphQL } from '@/src/use-gql';
 import { graphql } from '../../src/gql/gql';
+import { Shop } from '@/src/gql/graphql';
 
 interface Props {
   sectionName: string;
 }
 
 const shopNameQueryDoc = graphql(/* GraphQL*/ `
-  query getShopName {
+  query name {
     shop {
       name
     }

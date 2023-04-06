@@ -6963,10 +6963,10 @@ export enum WeightUnit {
   Pounds = 'POUNDS'
 }
 
-export type GetShopNameQueryVariables = Exact<{ [key: string]: never; }>;
+export type NameQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetShopNameQuery = { __typename?: 'QueryRoot', shop: { __typename?: 'Shop', name: string } };
+export type NameQuery = { __typename?: 'QueryRoot', shop: { __typename?: 'Shop', name: string } };
 
 
-export const GetShopNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetShopName"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"shop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetShopNameQuery, GetShopNameQueryVariables>;
+export const NameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"name"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"shop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<NameQuery, NameQueryVariables>;
