@@ -1,10 +1,7 @@
 import styles from './product-collection.module.css';
 import { titleToHandle, useGraphQL } from '@/graphql/use-gql';
 import Image from 'next/image';
-import {
-  getCollectionByHandleQueryDoc,
-  getProductCollectionQueryDoc,
-} from './query';
+import { getCollectionByHandleQueryDoc } from './query';
 
 interface Props {
   collectionName: string;
@@ -45,7 +42,7 @@ export default function ProductCollection(props: Props) {
       >
         click me
       </button> */}
-      {productTiles}
+      <div className={styles['products']}>{productTiles}</div>
     </section>
   );
 }
@@ -66,8 +63,8 @@ function ProductTile(props: ProductTileProps) {
       <Image
         src={props.imageUrl}
         alt={props.altText}
-        width={200}
-        height={200}
+        width={150}
+        height={150}
       ></Image>
       <h3>{props.brand}</h3>
       <h3>{props.name}</h3>
