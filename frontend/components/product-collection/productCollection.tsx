@@ -1,6 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
+
+/* Styles */
 import styles from './product-collection.module.css';
+import { font_roboto_cond } from '@/fonts/fonts';
+
 import { titleToHandle, useGraphQL } from '@/graphql/use-gql';
-import Image from 'next/image';
 import { getCollectionByHandleQueryDoc } from './query';
 
 interface Props {
@@ -33,22 +37,16 @@ export default function ProductCollection(props: Props) {
     });
 
   return (
-    <section className={styles['product-section']}>
+    <section
+      className={`${styles['product-section']} ${font_roboto_cond.variable}`}
+    >
       <h2 className={styles['section-title']}>{props.collectionName}</h2>
-      {/* <button
-        onClick={() => {
-          console.log(collectionData);
-        }}
-      >
-        click me
-      </button> */}
       <div className={styles['products']}>{productTiles}</div>
     </section>
   );
 }
 
 /* Subcomponents */
-
 interface ProductTileProps {
   name: string;
   brand: string;
@@ -59,16 +57,28 @@ interface ProductTileProps {
 
 function ProductTile(props: ProductTileProps) {
   return (
-    <div>
-      <Image
-        src={props.imageUrl}
-        alt={props.altText}
-        width={150}
-        height={150}
-      ></Image>
-      <h3>{props.brand}</h3>
-      <h3>{props.name}</h3>
-      <h3>{props.price}</h3>
+    <div className={styles['product-tile']}>
+      <div className={styles['image-wrapper']}>
+        {/* <Image
+          src={props.imageUrl}
+          alt={props.altText}
+          // width={150}
+          // height={150}
+          fill={true}
+        /> */}
+        <img
+          className={styles['image']}
+          src={props.imageUrl}
+          alt={props.altText}
+        />
+      </div>
+      <div className={styles['product-text-info']}>
+        <div className={styles['brand-name-wrapper']}>
+          <h3 className={styles['brand-text']}>{props.brand}</h3>
+          <h3 className={styles['name-text']}>{props.name}</h3>
+        </div>
+        <h3 className={styles['price-text']}>{props.price}</h3>
+      </div>
     </div>
   );
 }

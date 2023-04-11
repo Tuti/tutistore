@@ -6,13 +6,13 @@
   align-items: center;
   min-height: 4rem;
   background-color: rgba(0, 0, 0, 1);
+  z-index: 555;
 }
 
 .branding {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-family: var(--font-bebas-neue);
   color: red;
-  font-weight: bold;
-  font-style: italic;
   background-color: rgba(0, 0, 0, 0);
 }
 

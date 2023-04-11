@@ -1,10 +1,15 @@
-import styles from './navbar.module.css';
+/* Icons */
 import { Menu, Search, Close } from '@mui/icons-material';
 import { useState } from 'react';
+
+/* Styles */
+import styles from './navbar.module.css';
+import { font_bebas_neue } from '@/fonts/fonts';
 
 interface Props {
   storeName: string;
 }
+
 export default function Navbar(props: Props) {
   const activeMenuStyle = `${styles['menu']} ${styles['active-menu']}`;
   const activeSearchStyle = `${styles['search-form']} ${styles['active-search-form']}`;
@@ -21,7 +26,7 @@ export default function Navbar(props: Props) {
   }
 
   return (
-    <nav className={`${styles['nav-container']}`}>
+    <nav className={`${styles['nav-container']} ${font_bebas_neue.variable}`}>
       <div className={menuActive ? activeMenuStyle : `${styles['menu']}`}>
         menu
       </div>
