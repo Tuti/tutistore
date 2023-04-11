@@ -1,0 +1,31 @@
+.footer {
+  display: grid;
+  grid-template-rows: auto;
+  background-color: #2b2b2b;
+  color: #f8f5fa;
+  min-height: 10rem;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.links-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 1rem;
+  padding-left: 1rem;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.link-button {
+  color: gray;
+  width: fit-content;
+  /* border: 1px solid red; */
+}

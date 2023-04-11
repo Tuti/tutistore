@@ -2,10 +2,12 @@
 
 /* Styles */
 import styles from './product-collection.module.css';
-import { font_roboto_cond } from '@/fonts/fonts';
+import { font_roboto_cond } from '@/utils/fonts';
 
 import { titleToHandle, useGraphQL } from '@/graphql/use-gql';
 import { getCollectionByHandleQueryDoc } from './query';
+
+import { currencyFormatter } from '@/utils/utils';
 
 interface Props {
   collectionName: string;
@@ -15,7 +17,7 @@ interface Props {
 export default function ProductCollection(props: Props) {
   const collectionData = useGraphQL(getCollectionByHandleQueryDoc, {
     handle: titleToHandle(props.collectionName),
-    numProducts: 6,
+    numProducts: props.numberOfItems,
   });
 
   const productTiles =
@@ -25,7 +27,11 @@ export default function ProductCollection(props: Props) {
           key={element.node.id}
           name={element.node.title}
           brand={element.node.vendor}
-          imageUrl={element.node.images.edges[0].node.url}
+          imageUrl={
+            element.node.images.edges[0].node.url
+              ? element.node.images.edges[0].node.url
+              : ''
+          }
           altText={
             element.node.images.edges[0].node.altText
               ? element.node.images.edges[0].node.altText
@@ -77,7 +83,9 @@ function ProductTile(props: ProductTileProps) {
           <h3 className={styles['brand-text']}>{props.brand}</h3>
           <h3 className={styles['name-text']}>{props.name}</h3>
         </div>
-        <h3 className={styles['price-text']}>{props.price}</h3>
+        <h3 className={styles['price-text']}>
+          {currencyFormatter.format(parseInt(props.price, 10))}
+        </h3>
       </div>
     </div>
   );

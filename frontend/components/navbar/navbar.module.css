@@ -21,7 +21,7 @@
   width: 100vw;
   height: 100vh;
   top: calc(0px - 100vh);
-  background-color: gray;
+  background-color: #f8f5fa;
   transition: 0.4s;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .search-form {
-  background-color: ivory;
+  background-color: #f8f5fa;
   position: absolute;
   display: flex;
   width: 100%;

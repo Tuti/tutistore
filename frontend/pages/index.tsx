@@ -9,6 +9,7 @@ import Image from 'next/image';
 
 /** Components **/
 import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
 import ProductCollection from '@/components/product-collection/productCollection';
 
 /***  Constants ***/
@@ -49,11 +50,13 @@ export default function Home() {
           alt="landing page"
           src={'/air-jordan-orange.jpg'}
         />
-        <ProductCollection
-          collectionName={'New Releases'}
-          numberOfItems={4}
-        ></ProductCollection>
+        {/* I should add this over the landing page image overtop in a cool way */}
+        {/* <div>The Time For Hype... Is Now</div>  */}
+        <ProductCollection collectionName={'New Releases'} numberOfItems={6} />
+        <ProductCollection collectionName={'Top Sellers'} numberOfItems={6} />
+        <ProductCollection collectionName={'Air Jordan 1'} numberOfItems={6} />
       </main>
+      <Footer />
     </>
   );
 }

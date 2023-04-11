@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 /* Styles */
 import styles from './navbar.module.css';
-import { font_bebas_neue } from '@/fonts/fonts';
+import { font_bebas_neue } from '@/utils/fonts';
 
 interface Props {
   storeName: string;
@@ -45,7 +45,7 @@ export default function Navbar(props: Props) {
         />
         <Close
           className={menuActive ? '' : `${styles['invisible']}`}
-          sx={{ fontSize: '2rem', color: 'white' }}
+          sx={{ fontSize: '2rem', color: 'black' }}
         />
       </button>
       <div className={styles.branding}>{props.storeName}</div>
