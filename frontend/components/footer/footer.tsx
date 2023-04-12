@@ -16,7 +16,7 @@ export default function Footer() {
           <div className={styles['links-container']}>
             <button className={styles['link-button']}>Our History</button>
             <button className={styles['link-button']}>
-              Shipping And Returns
+              Shipping and Returns
             </button>
             <button className={styles['link-button']}>Support</button>
           </div>

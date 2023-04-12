@@ -8,6 +8,7 @@ import { titleToHandle, useGraphQL } from '@/graphql/use-gql';
 import { getCollectionByHandleQueryDoc } from './query';
 
 import { currencyFormatter } from '@/utils/utils';
+import Image from 'next/image';
 
 interface Props {
   collectionName: string;
@@ -48,6 +49,11 @@ export default function ProductCollection(props: Props) {
     >
       <h2 className={styles['section-title']}>{props.collectionName}</h2>
       <div className={styles['products']}>{productTiles}</div>
+      <div className={styles['shop-more-wrapper']}>
+        <button className={styles['shop-button']}>
+          {'Shop ' + `${props.collectionName}`}
+        </button>
+      </div>
     </section>
   );
 }
@@ -63,15 +69,13 @@ interface ProductTileProps {
 
 function ProductTile(props: ProductTileProps) {
   return (
-    <div className={styles['product-tile']}>
+    <button
+      className={styles['product-tile']}
+      onClick={() => {
+        console.log(props.name);
+      }}
+    >
       <div className={styles['image-wrapper']}>
-        {/* <Image
-          src={props.imageUrl}
-          alt={props.altText}
-          // width={150}
-          // height={150}
-          fill={true}
-        /> */}
         <img
           className={styles['image']}
           src={props.imageUrl}
@@ -87,6 +91,6 @@ function ProductTile(props: ProductTileProps) {
           {currencyFormatter.format(parseInt(props.price, 10))}
         </h3>
       </div>
-    </div>
+    </button>
   );
 }
