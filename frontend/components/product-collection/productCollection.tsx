@@ -8,7 +8,6 @@ import { titleToHandle, useGraphQL } from '@/graphql/use-gql';
 import { getCollectionByHandleQueryDoc } from './query';
 
 import { currencyFormatter } from '@/utils/utils';
-import Image from 'next/image';
 
 interface Props {
   collectionName: string;

@@ -1,4 +1,4 @@
-import { Bebas_Neue, Roboto, Roboto_Condensed } from '@next/font/google';
+import { Bebas_Neue, Roboto, Roboto_Condensed } from 'next/font/google';
 
 export const font_bebas_neue = Bebas_Neue({
   weight: ['400'],

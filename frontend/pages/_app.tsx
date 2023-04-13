@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 /** Next.js imports  **/
 import type { AppProps } from 'next/app';
-import { Roboto, Bebas_Neue, Inter } from '@next/font/google';
+import { Roboto, Bebas_Neue, Inter } from 'next/font/google';
 import Head from 'next/head';
 
 const roboto = Roboto({ weight: '400', style: ['normal'], subsets: ['latin'] });
