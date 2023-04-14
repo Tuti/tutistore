@@ -20,12 +20,3 @@ export function useGraphQL<TResult, TVariables>(
       )
   );
 }
-
-/**
- *
- * @param title Name of Collection in Shopify Backend
- * @returns title of collection in handle format (string)
- */
-export function titleToHandle(title: string) {
-  return title.replace(/\s+/g, '-').toLowerCase();
-}

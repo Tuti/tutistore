@@ -1,9 +1,10 @@
+import { font_roboto } from '@/utils/fonts';
 import styles from './footer.module.css';
 
 export default function Footer() {
   return (
     <>
-      <footer className={styles['footer']}>
+      <footer className={`${styles['footer']} ${font_roboto.variable}`}>
         <section className={styles['sections']}>
           <h3>Account</h3>
           <div className={styles['links-container']}>

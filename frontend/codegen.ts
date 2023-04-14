@@ -15,7 +15,7 @@ const config: CodegenConfig = {
       },
     },
   ],
-  documents: ['components/**/*.tsx', 'components/**/*.ts'],
+  documents: ['components/**/*.tsx', 'components/**/*.ts', 'pages/**/*.ts'],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
     './graphql/generated/': {

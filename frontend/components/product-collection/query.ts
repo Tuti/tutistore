@@ -8,7 +8,7 @@ export const getShopNameQueryDoc = graphql(/* GraphQL*/ `
   }
 `);
 
-export const getProductCollectionQueryDoc = graphql(/* Graphql */ `
+export const getProductCollectionQueryDoc = graphql(/* GraphQL */ `
   query GetProducts($amount: Int) {
     products(first: $amount) {
       edges {

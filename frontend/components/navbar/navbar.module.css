@@ -5,15 +5,15 @@
   justify-content: center;
   align-items: center;
   min-height: 4rem;
-  background-color: #111;
+  background-color: var(--secondary-bg-color);
   z-index: 555;
+  font-family: var(--font-roboto);
 }
 
 .branding {
   font-size: 2.5rem;
   font-family: var(--font-bebas-neue);
   color: red;
-  background-color: rgba(0, 0, 0, 0);
 }
 
 .menu {
@@ -21,7 +21,7 @@
   width: 100vw;
   height: 100vh;
   top: calc(0px - 100vh);
-  background-color: #f8f5fa;
+  background-color: var(--main-bg-color);
   transition: 0.4s;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .search-form {
-  background-color: #f8f5fa;
+  background-color: var(--main-bg-color);
   position: absolute;
   display: flex;
   width: 100%;

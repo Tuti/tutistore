@@ -4,10 +4,11 @@
 import styles from './product-collection.module.css';
 import { font_roboto_cond } from '@/utils/fonts';
 
-import { titleToHandle, useGraphQL } from '@/graphql/use-gql';
+import { useGraphQL } from '@/graphql/use-gql';
 import { getCollectionByHandleQueryDoc } from './query';
 
-import { currencyFormatter } from '@/utils/utils';
+import { formatToUSD, nameToUrlSlug, titleToHandle } from '@/utils/utils';
+import { useRouter } from 'next/router';
 
 interface Props {
   collectionName: string;
@@ -19,6 +20,8 @@ export default function ProductCollection(props: Props) {
     handle: titleToHandle(props.collectionName),
     numProducts: props.numberOfItems,
   });
+
+  console.log({ collectionData });
 
   const productTiles =
     collectionData?.data?.collectionByHandle?.products.edges.map((element) => {
@@ -67,11 +70,12 @@ interface ProductTileProps {
 }
 
 function ProductTile(props: ProductTileProps) {
+  const router = useRouter();
   return (
     <button
       className={styles['product-tile']}
       onClick={() => {
-        console.log(props.name);
+        router.push(`/products/${nameToUrlSlug(props.name)}`);
       }}
     >
       <div className={styles['image-wrapper']}>
@@ -86,9 +90,7 @@ function ProductTile(props: ProductTileProps) {
           <h3 className={styles['brand-text']}>{props.brand}</h3>
           <h3 className={styles['name-text']}>{props.name}</h3>
         </div>
-        <h3 className={styles['price-text']}>
-          {currencyFormatter.format(parseInt(props.price, 10))}
-        </h3>
+        <h3 className={styles['price-text']}>{formatToUSD(props.price)}</h3>
       </div>
     </button>
   );

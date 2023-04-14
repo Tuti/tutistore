@@ -60,7 +60,7 @@
 }
 .brand-text {
   font-size: 1rem;
-  color: gray;
+  color: #7e7e7e;
 }
 
 .name-text {
@@ -79,12 +79,12 @@
 .shop-more-wrapper {
   display: flex;
   justify-content: center;
-  color: #f8f5fa;
+  color: var(--main-bg-color);
   margin-top: 1rem;
 }
 
 .shop-button {
   padding: 1rem;
-  background-color: #111;
+  background-color: var(--secondary-bg-color);
   text-align: center;
 }

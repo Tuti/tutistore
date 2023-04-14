@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 /** Styles **/
-import styles from '@/styles/Home.module.css';
+import styles from '@/styles/home.module.css';
 
 /**  Next.js imports **/
 
@@ -11,14 +11,11 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import ProductCollection from '@/components/product-collection/productCollection';
 
-/***  Constants ***/
-const storeName: string = 'Hype Club';
-
 export default function Home() {
   return (
     <>
       <Header />
-      <Navbar storeName={storeName}></Navbar>
+      <Navbar />
       <main>
         {/* For non-mobile view want to add 3 images akin to pillars  */}
         <img

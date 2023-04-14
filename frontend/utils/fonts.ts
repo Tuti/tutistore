@@ -9,7 +9,14 @@ export const font_bebas_neue = Bebas_Neue({
 
 export const font_roboto_cond = Roboto_Condensed({
   weight: ['400', '700'],
-  style: 'normal',
+  style: ['normal'],
   subsets: ['latin'],
   variable: '--font-roboto-cond',
+});
+
+export const font_roboto = Roboto({
+  weight: ['400', '700', '900'],
+  style: ['normal'],
+  subsets: ['latin'],
+  variable: '--font-roboto',
 });
