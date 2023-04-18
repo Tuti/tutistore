@@ -14,7 +14,7 @@ import ProductCollection from '@/components/product-collection/productCollection
 export default function Home() {
   return (
     <>
-      <Header />
+      <Header title={'HYPE CLUB'} />
       <Navbar />
       <main>
         {/* For non-mobile view want to add 3 images akin to pillars  */}
