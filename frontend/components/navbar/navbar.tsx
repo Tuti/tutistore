@@ -6,7 +6,7 @@ import { useState } from 'react';
 import styles from './navbar.module.css';
 import { font_bebas_neue, font_roboto } from '@/utils/fonts';
 import { useRouter } from 'next/router';
-import { useCartStore } from '@/cart/query';
+import { useCartStore } from '@/cart/cartStore';
 
 /** Constants */
 const storeName = 'Hype Club';

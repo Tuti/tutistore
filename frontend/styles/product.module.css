@@ -50,7 +50,22 @@
   gap: 0.5rem;
 }
 
-.size-picker,
+/* .size-picker, */
+
+.size-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 0.5rem;
+}
+
+.size-tile {
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
 .add-to-cart-button {
   border: 1px solid black;
   padding: 0.75rem;

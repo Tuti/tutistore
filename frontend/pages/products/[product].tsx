@@ -16,21 +16,33 @@ import { font_roboto } from '@/utils/fonts';
 
 /** Utils */
 import { formatToUSD } from '@/utils/utils';
-import { useCartStore } from '@/cart/query';
+import { useCartStore } from '@/cart/cartStore';
 
 export default function Product() {
   const router = useRouter();
-  const increaseCart = useCartStore((state) => state.increase);
-
-  const [currentSize, setCurrentSize] = useState('Pick a Size');
   const { product } = router.query;
 
-  console.log(String(product));
+  const increaseCart = useCartStore((state) => state.increase);
+  const [currentSize, setCurrentSize] = useState('');
+
   const productData = useGraphQL(getProductDataByHandleQueryDoc, {
     productHandle: String(product),
   });
 
-  function addToCart() {}
+  const sizeTiles = productData.data?.product?.variants.edges.map((element) => {
+    return (
+      <button
+        key={element.node.id}
+        className={styles['size-tile']}
+        onClick={() => {
+          //title of variant is shoe size
+          setCurrentSize(element.node.title);
+        }}
+      >
+        <span className={styles['size-tile-text']}>{element.node.title}</span>
+      </button>
+    );
+  });
 
   return (
     <>
@@ -71,7 +83,8 @@ export default function Product() {
         />
         <div className={styles['purchase-size-container']}>
           <h3>{"Select US Men's"}</h3>
-          <button className={styles['size-picker']}>{currentSize}</button>
+          {/* <button className={styles['size-picker']}>{currentSize}</button> */}
+          <div className={styles['size-picker']}>{sizeTiles}</div>
           <button
             className={styles['add-to-cart-button']}
             onClick={() => {
@@ -110,4 +123,3 @@ export default function Product() {
     </>
   );
 }
-2;

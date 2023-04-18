@@ -22,7 +22,7 @@ export default function Home() {
           // probably need to change to next/Image
           className={styles['landing-page-img']}
           alt="landing page"
-          src={'/air-jordan-orange.jpg'}
+          src={'/air-jordan-1-dark-mocha.jpg'}
         />
         {/* I should add this over the landing page image overtop in a cool way */}
         {/* <div>The Time For Hype... Is Now</div>  */}
