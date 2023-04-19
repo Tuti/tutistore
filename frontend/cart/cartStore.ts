@@ -1,14 +1,16 @@
+import { Product } from '@/graphql/generated/graphql';
 import { create } from 'zustand';
 
 interface CartState {
   userCountry: string;
   userEmail: string;
-  items: number;
-  increase: (by: number) => void;
+  shoppingCart: Product[];
+  addToCart: (product: Product) => void;
 }
 export const useCartStore = create<CartState>()((set) => ({
   userCountry: 'US',
   userEmail: 'test@example.com',
-  items: 0,
-  increase: (by) => set((state) => ({ items: state.items + by })),
+  shoppingCart: [],
+  addToCart: (product) =>
+    set((state) => ({ shoppingCart: [...state.shoppingCart, product] })),
 }));

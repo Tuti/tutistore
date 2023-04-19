@@ -15,7 +15,7 @@ export default function Navbar() {
   const activeMenuStyle = `${styles['menu']} ${styles['active-menu']}`;
   const activeSearchStyle = `${styles['search-form']} ${styles['active-search-form']}`;
 
-  const cartCountItems = useCartStore((state) => state.items);
+  const shoppingCart = useCartStore((state) => state.shoppingCart);
 
   const [menuActive, setMenuActive] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
@@ -105,12 +105,12 @@ export default function Navbar() {
             ></ShoppingCartOutlined>
             <div
               className={
-                cartCountItems === 0
+                shoppingCart.length === 0
                   ? styles['invisible']
                   : styles['item-counter-badge']
               }
             >
-              {cartCountItems}
+              {shoppingCart.length}
             </div>
           </button>
         </div>

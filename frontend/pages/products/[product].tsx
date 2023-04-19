@@ -17,14 +17,14 @@ import { font_roboto } from '@/utils/fonts';
 /** Utils */
 import { formatToUSD } from '@/utils/utils';
 import { useCartStore } from '@/cart/cartStore';
+import { Product } from '@/graphql/generated/graphql';
 
-export default function Product() {
+export default function ProductPage() {
   const router = useRouter();
   const { product } = router.query;
 
-  const increaseCart = useCartStore((state) => state.increase);
+  const addToCart = useCartStore((state) => state.addToCart);
   const [currentSize, setCurrentSize] = useState('');
-  const [selectedTile, setSelectedTile] = useState('');
 
   const productData = useGraphQL(getProductDataByHandleQueryDoc, {
     productHandle: String(product),
@@ -35,10 +35,14 @@ export default function Product() {
     return (
       <button
         key={element.node.id}
-        className={styles['size-tile']}
+        className={
+          currentSize === element.node.title
+            ? `${styles['size-tile']} ${styles['size-tile-selected']}`
+            : styles['size-tile']
+        }
         onClick={() => {
-          setCurrentSize(element.node.title);
-          setSelectedTile(element.node.id);
+          //this needs to go into add cart button and decide how to save which variant it is
+          addToCart(productData.data.product as Product);
         }}
       >
         <span className={styles['size-tile-text']}>{element.node.title}</span>
@@ -90,7 +94,8 @@ export default function Product() {
           <button
             className={styles['add-to-cart-button']}
             onClick={() => {
-              increaseCart(1);
+              if (currentSize !== '') {
+              }
             }}
           >
             {'ADD TO CART'}
