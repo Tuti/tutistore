@@ -24,19 +24,21 @@ export default function Product() {
 
   const increaseCart = useCartStore((state) => state.increase);
   const [currentSize, setCurrentSize] = useState('');
+  const [selectedTile, setSelectedTile] = useState('');
 
   const productData = useGraphQL(getProductDataByHandleQueryDoc, {
     productHandle: String(product),
   });
 
   const sizeTiles = productData.data?.product?.variants.edges.map((element) => {
+    //check key to selectedtile and give corresponding css style
     return (
       <button
         key={element.node.id}
         className={styles['size-tile']}
         onClick={() => {
-          //title of variant is shoe size
           setCurrentSize(element.node.title);
+          setSelectedTile(element.node.id);
         }}
       >
         <span className={styles['size-tile-text']}>{element.node.title}</span>

@@ -44,9 +44,6 @@
   justify-content: center;
   flex-shrink: 0;
   margin-bottom: 2rem;
-  /* padding-bottom: 2rem; */
-  margin-top: 2rem;
-  /* padding: 1rem; */
   gap: 0.5rem;
 }
 
@@ -57,13 +54,19 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   gap: 0.5rem;
+  /* background-color: red; */
 }
 
 .size-tile {
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid var(--box-border-color);
   border-radius: 5px;
   padding: 0.5rem;
+  background-color: var(--box-bg-color);
+}
+
+.size-tile:hover {
+  border: 1px solid black;
 }
 
 .add-to-cart-button {
