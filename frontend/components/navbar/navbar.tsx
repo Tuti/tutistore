@@ -6,7 +6,7 @@ import { useState } from 'react';
 import styles from './navbar.module.css';
 import { font_bebas_neue, font_roboto } from '@/utils/fonts';
 import { useRouter } from 'next/router';
-import { useCartStore } from '@/cart/cartStore';
+import { useCartStore } from '@/zustand/cart/cartStore';
 
 /** Constants */
 const storeName = 'Hype Club';
@@ -105,12 +105,12 @@ export default function Navbar() {
             ></ShoppingCartOutlined>
             <div
               className={
-                shoppingCart.length === 0
+                shoppingCart.size === 0
                   ? styles['invisible']
                   : styles['item-counter-badge']
               }
             >
-              {shoppingCart.length}
+              {shoppingCart.size}
             </div>
           </button>
         </div>

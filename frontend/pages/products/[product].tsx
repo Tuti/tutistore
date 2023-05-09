@@ -11,24 +11,28 @@ import Navbar from '@/components/navbar/navbar';
 import { useRouter } from 'next/router';
 import { useGraphQL } from '@/graphql/use-gql';
 import { getProductDataByHandleQueryDoc } from './query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { font_roboto } from '@/utils/fonts';
 
 /** Utils */
 import { formatToUSD } from '@/utils/utils';
-import { useCartStore } from '@/cart/cartStore';
 import { Product } from '@/graphql/generated/graphql';
+import { useCartStore } from '@/zustand/cart/cartStore';
+import { useCreateCart } from '@/zustand/cart/useCreateCart';
+// import { createCartQueryDoc } from '@/zustand/cart/query';
 
 export default function ProductPage() {
+  const cartID = useCartStore((state) => state.cartID);
   const router = useRouter();
   const { product } = router.query;
 
-  const addToCart = useCartStore((state) => state.addToCart);
   const [currentSize, setCurrentSize] = useState('');
 
   const productData = useGraphQL(getProductDataByHandleQueryDoc, {
     productHandle: String(product),
   });
+
+  console.log({ productData });
 
   const sizeTiles = productData.data?.product?.variants.edges.map((element) => {
     //check key to selectedtile and give corresponding css style
@@ -40,10 +44,7 @@ export default function ProductPage() {
             ? `${styles['size-tile']} ${styles['size-tile-selected']}`
             : styles['size-tile']
         }
-        onClick={() => {
-          //this needs to go into add cart button and decide how to save which variant it is
-          addToCart(productData.data.product as Product);
-        }}
+        onClick={() => {}}
       >
         <span className={styles['size-tile-text']}>{element.node.title}</span>
       </button>
