@@ -11,23 +11,31 @@ import Navbar from '@/components/navbar/navbar';
 import { useRouter } from 'next/router';
 import { useGraphQL } from '@/graphql/use-gql';
 import { getProductDataByHandleQueryDoc } from './query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { font_roboto } from '@/utils/fonts';
 
 /** Utils */
 import { formatToUSD } from '@/utils/utils';
-import { Product } from '@/graphql/generated/graphql';
+import { StorePolicies } from '@/components/store-policies/storePolicies';
 import { useCartStore } from '@/zustand/cart/cartStore';
-import { useCreateCart } from '@/zustand/cart/useCreateCart';
-// import { createCartQueryDoc } from '@/zustand/cart/query';
+import { CartItem } from '@/zustand/cart/cartStore';
+import { toast } from 'react-hot-toast';
 
 export default function ProductPage() {
-  const cartID = useCartStore((state) => state.cartID);
+  // const cartID = useCartStore((state) => state.cartID);
   const router = useRouter();
   const { product } = router.query;
+  const addToCart = useCartStore((state) => state.addToCart);
 
-  const [currentSize, setCurrentSize] = useState('');
+  const [currentSize, setCurrentSize] = useState<CartItem>({
+    title: '',
+    productID: '',
+    variantID: '',
+    quantity: 0,
+  } as CartItem);
 
+  const [errorStyle, setErrorStyle] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('Pick a size');
   const productData = useGraphQL(getProductDataByHandleQueryDoc, {
     productHandle: String(product),
   });
@@ -35,21 +43,45 @@ export default function ProductPage() {
   console.log({ productData });
 
   const sizeTiles = productData.data?.product?.variants.edges.map((element) => {
-    //check key to selectedtile and give corresponding css style
     return (
       <button
         key={element.node.id}
         className={
-          currentSize === element.node.title
+          currentSize.title === element.node.title
             ? `${styles['size-tile']} ${styles['size-tile-selected']}`
             : styles['size-tile']
         }
-        onClick={() => {}}
+        onClick={() => {
+          setCurrentSize((currentSize) => ({
+            ...currentSize,
+            title: element.node.title,
+          }));
+          setErrorStyle(false);
+        }}
       >
         <span className={styles['size-tile-text']}>{element.node.title}</span>
       </button>
     );
   });
+
+  function handleAddToCart() {
+    if (currentSize.title == '') {
+      setErrorStyle(true);
+      return;
+    }
+
+    const response = addToCart(
+      currentSize.productID,
+      currentSize.variantID,
+      currentSize.title
+    );
+    console.log('item added');
+
+    if (response.success === false) {
+      toast('Cannot add more than 3 of a single product');
+      //do no more stuff later
+    }
+  }
 
   return (
     <>
@@ -90,14 +122,27 @@ export default function ProductPage() {
         />
         <div className={styles['purchase-size-container']}>
           <h3>{"Select US Men's"}</h3>
-          {/* <button className={styles['size-picker']}>{currentSize}</button> */}
-          <div className={styles['size-picker']}>{sizeTiles}</div>
+          <div
+            className={
+              errorStyle
+                ? `${styles['size-picker']} ${styles['size-picker-unselected']}`
+                : styles['size-picker']
+            }
+          >
+            {sizeTiles}
+          </div>
+          <span
+            className={
+              errorStyle
+                ? styles['size-selected-message']
+                : `${styles['invisible']}`
+            }
+          >
+            {errorMessage}
+          </span>
           <button
             className={styles['add-to-cart-button']}
-            onClick={() => {
-              if (currentSize !== '') {
-              }
-            }}
+            onClick={handleAddToCart}
           >
             {'ADD TO CART'}
           </button>
@@ -108,24 +153,7 @@ export default function ProductPage() {
             {productData.data?.product?.description}
           </p>
         </div>
-        <div className={styles['policies-container']}>
-          <h3>Shipping And Returns</h3>
-          <h4 className={styles['policy-heading']}>{'Shipping'}</h4>
-          <p className={styles['policy-text']}>
-            We ship to all locations within the United States. Orders are
-            processed within 1-2 business days. Shipping times vary depending on
-            the location, but typically take 3-5 business days.
-          </p>
-          <h4 className={styles['policy-heading']}>{'Returns'}</h4>
-          <p className={styles['policy-text']}>
-            We accept returns up to 2 weeks from the date the product was
-            received in the mail. To initiate a return, please contact our
-            customer service team with your order number and reason for return.
-            The product must be returned in its original condition and
-            packaging. Once we receive the returned product, we will process a
-            refund within 5-7 business days.
-          </p>
-        </div>
+        <StorePolicies />
       </main>
       <Footer />
     </>

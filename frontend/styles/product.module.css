@@ -57,6 +57,19 @@
   /* background-color: red; */
 }
 
+.size-picker-unselected {
+  border-radius: var(--border-radius);
+  border: 1px solid red;
+}
+
+.size-selected-message {
+  color: red;
+}
+
+.invisible {
+  display: none;
+}
+
 .size-tile {
   text-align: center;
   border: 1px solid var(--box-border-color);
@@ -101,26 +114,5 @@
 }
 
 .description-text {
-  padding: 0 0.5rem;
-}
-
-.policies-container {
-  display: grid;
-  grid-template-rows: auto;
-  gap: 0.5rem;
-  line-height: 1.6;
-}
-
-.policy-text,
-.policy-heading {
-  font-size: 0.75rem;
-  font-weight: 300;
-}
-
-.policy-heading {
-  font-weight: 700;
-}
-
-.policy-text {
   padding: 0 0.5rem;
 }
