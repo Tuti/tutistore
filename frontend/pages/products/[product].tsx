@@ -40,7 +40,7 @@ export default function ProductPage() {
     productHandle: String(product),
   });
 
-  console.log({ productData });
+  // console.log({ productData });
 
   const sizeTiles = productData.data?.product?.variants.edges.map((element) => {
     return (
@@ -55,6 +55,8 @@ export default function ProductPage() {
           setCurrentSize((currentSize) => ({
             ...currentSize,
             title: element.node.title,
+            productID: productData.data?.product?.id as string,
+            variantID: element.node.id,
           }));
           setErrorStyle(false);
         }}
@@ -75,11 +77,20 @@ export default function ProductPage() {
       currentSize.variantID,
       currentSize.title
     );
-    console.log('item added');
 
     if (response.success === false) {
-      toast('Cannot add more than 3 of a single product');
+      toast.error('Cannot add more than 3 of a single product', {
+        style: {
+          fontFamily: `${font_roboto.style.fontFamily}`,
+        },
+      });
       //do no more stuff later
+    } else {
+      toast.success('Added to cart!', {
+        style: {
+          fontFamily: `${font_roboto.style.fontFamily}`,
+        },
+      });
     }
   }
 

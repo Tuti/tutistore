@@ -6,7 +6,7 @@ import { useState } from 'react';
 import styles from './navbar.module.css';
 import { font_bebas_neue, font_roboto } from '@/utils/fonts';
 import { useRouter } from 'next/router';
-import { useCartStore } from '@/zustand/cart/cartStore';
+import { CartItem, useCartStore } from '@/zustand/cart/cartStore';
 
 /** Constants */
 const storeName = 'Hype Club';
@@ -15,7 +15,7 @@ export default function Navbar() {
   const activeMenuStyle = `${styles['menu']} ${styles['active-menu']}`;
   const activeSearchStyle = `${styles['search-form']} ${styles['active-search-form']}`;
 
-  const shoppingCart = useCartStore((state) => state.shoppingCart);
+  const cartSize = useCartStore((state) => state.cartSize);
 
   const [menuActive, setMenuActive] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
@@ -33,6 +33,7 @@ export default function Navbar() {
   function handleCartClick() {
     router.push('/cart');
   }
+
   return (
     <>
       <nav
@@ -105,12 +106,12 @@ export default function Navbar() {
             ></ShoppingCartOutlined>
             <div
               className={
-                shoppingCart.size === 0
+                cartSize === 0
                   ? styles['invisible']
                   : styles['item-counter-badge']
               }
             >
-              {shoppingCart.size}
+              {cartSize}
             </div>
           </button>
         </div>

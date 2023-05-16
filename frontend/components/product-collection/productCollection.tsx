@@ -21,7 +21,7 @@ export default function ProductCollection(props: Props) {
     numProducts: props.numberOfItems,
   });
 
-  console.log({ collectionData });
+  // console.log({ collectionData });
 
   const productTiles =
     collectionData?.data?.collectionByHandle?.products.edges.map((element) => {
