@@ -106,9 +106,9 @@ export default function Navbar() {
             ></ShoppingCartOutlined>
             <div
               className={
-                cartSize === 0
-                  ? styles['invisible']
-                  : styles['item-counter-badge']
+                cartSize > 0 && !menuActive && !searchActive
+                  ? styles['item-counter-badge']
+                  : styles['invisible']
               }
             >
               {cartSize}

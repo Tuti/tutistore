@@ -20,6 +20,7 @@ import { StorePolicies } from '@/components/store-policies/storePolicies';
 import { useCartStore } from '@/zustand/cart/cartStore';
 import { CartItem } from '@/zustand/cart/cartStore';
 import { toast } from 'react-hot-toast';
+import { ProductVariant } from '@/graphql/generated/graphql';
 
 export default function ProductPage() {
   // const cartID = useCartStore((state) => state.cartID);
@@ -27,36 +28,46 @@ export default function ProductPage() {
   const { product } = router.query;
   const addToCart = useCartStore((state) => state.addToCart);
 
-  const [currentSize, setCurrentSize] = useState<CartItem>({
-    title: '',
-    productID: '',
-    variantID: '',
-    quantity: 0,
-  } as CartItem);
-
-  const [errorStyle, setErrorStyle] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('Pick a size');
   const productData = useGraphQL(getProductDataByHandleQueryDoc, {
     productHandle: String(product),
   });
 
-  // console.log({ productData });
+  const [currentSize, setCurrentSize] = useState<CartItem>({
+    name: '',
+    size: '',
+    productID: '',
+    variantID: '',
+    price: 0,
+    quantity: 0,
+    imageUrl: '',
+    altText: '',
+  } as CartItem);
+
+  const [errorStyle, setErrorStyle] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('Pick a size');
+
+  console.log({ productData });
 
   const sizeTiles = productData.data?.product?.variants.edges.map((element) => {
     return (
       <button
         key={element.node.id}
         className={
-          currentSize.title === element.node.title
+          currentSize.size === element.node.title
             ? `${styles['size-tile']} ${styles['size-tile-selected']}`
             : styles['size-tile']
         }
         onClick={() => {
           setCurrentSize((currentSize) => ({
             ...currentSize,
-            title: element.node.title,
+            name: productData.data?.product?.title as string,
+            size: element.node.title,
             productID: productData.data?.product?.id as string,
             variantID: element.node.id,
+            price: productData.data?.product?.priceRange.minVariantPrice
+              .amount as number,
+            imageUrl: productData.data?.product?.images.edges[0].node.url,
+            // variants: productData.data?.product?.variants.edges,
           }));
           setErrorStyle(false);
         }}
@@ -67,7 +78,7 @@ export default function ProductPage() {
   });
 
   function handleAddToCart() {
-    if (currentSize.title == '') {
+    if (currentSize.size == '') {
       setErrorStyle(true);
       return;
     }
@@ -75,7 +86,11 @@ export default function ProductPage() {
     const response = addToCart(
       currentSize.productID,
       currentSize.variantID,
-      currentSize.title
+      currentSize.name,
+      currentSize.price,
+      currentSize.imageUrl,
+      currentSize.altText,
+      currentSize.size
     );
 
     if (response.success === false) {

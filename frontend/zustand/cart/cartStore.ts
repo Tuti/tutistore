@@ -1,28 +1,38 @@
-import { Cart } from '@/graphql/generated/graphql';
+import { Cart, ProductVariant } from '@/graphql/generated/graphql';
 import { create } from 'zustand';
 
 const MAX_QUANTITY = 3;
 
 interface CartState {
   cartID: string;
-  shoppingCart: Map<string, CartItem>;
   cartSize: number;
+  subtotal: number;
+  userActiveCart: Map<string, CartItem>;
   productTotalQuantities: Map<string, number>;
+
   updateCartID: (cartID: string) => void;
+
   addToCart: (
     productID: string,
     variantID: string,
-    title: string
+    name: string,
+    price: number,
+    imageUrl: string,
+    altText: string,
+    size: string
   ) => { success: boolean; error: Error };
+
   updateProductQuantity: (
     productID: string,
     quantity: number
   ) => { success: boolean; error: Error };
+
   updateCartSize: () => void;
+  updateSubtotal: () => void;
 }
 
 export interface CartItem {
-  title: string;
+  size: string;
   variantID: string;
   productID: string;
   quantity: number;
@@ -30,42 +40,50 @@ export interface CartItem {
 
 export const useCartStore = create<CartState>()((set, get) => ({
   cartID: '',
-  shoppingCart: new Map<string, CartItem>(),
-  productTotalQuantities: new Map<string, number>(),
   cartSize: 0,
+  subtotal: 0,
+  userActiveCart: new Map<string, CartItem>(),
+  productTotalQuantities: new Map<string, number>(),
+
   updateCartID(cartID) {
     set({ cartID: cartID });
   },
-  addToCart(productID, variantID, title) {
+
+  addToCart(productID, variantID, name, price, imageUrl, altText, size) {
     const result = get().updateProductQuantity(productID, 1);
     if (result.success === false) {
       return result;
     }
 
     /* Variant does not exist so we create one */
-    const variantExists = get().shoppingCart.has(variantID);
+    const variantExists = get().userActiveCart.has(variantID);
     if (!variantExists) {
-      console.log('variant did not exist');
-      get().shoppingCart.set(variantID, <CartItem>{
+      get().userActiveCart.set(variantID, <CartItem>{
         productID: productID,
         variantID: variantID,
-        title: title,
+        name: name,
+        size: size,
+        price: price,
+        imageUrl: imageUrl,
+        altText: altText,
         quantity: 1,
       });
+      get().updateSubtotal();
       get().updateCartSize();
       return { success: true, error: new Error(undefined) };
     }
 
     /* Variant already exists and we update it */
-    const cartItem = get().shoppingCart.get(variantID);
-    get().shoppingCart.set(variantID, <CartItem>{
-      productID: productID,
-      variantID: variantID,
+    const cartItem = get().userActiveCart.get(variantID);
+    get().userActiveCart.set(variantID, <CartItem>{
+      ...cartItem,
       quantity: cartItem!.quantity + 1,
     });
+    get().updateSubtotal();
     get().updateCartSize();
     return { success: true, error: new Error(undefined) };
   },
+
   updateProductQuantity(productID, quantity) {
     if (!get().productTotalQuantities.has(productID)) {
       get().productTotalQuantities.set(productID, quantity);
@@ -89,11 +107,20 @@ export const useCartStore = create<CartState>()((set, get) => ({
       };
     }
   },
+
   updateCartSize() {
     let size = 0;
-    for (let value of get().shoppingCart.values()) {
+    for (let value of get().userActiveCart.values()) {
       size += value.quantity;
     }
     set({ cartSize: size });
+  },
+
+  updateSubtotal() {
+    let subtotal: number = 0;
+    for (let value of get().userActiveCart.values()) {
+      subtotal = +subtotal + +value.price * value.quantity; // prepend with + to ensure they are typed correctly
+    }
+    set({ subtotal: subtotal });
   },
 }));
