@@ -17,35 +17,23 @@ import { font_roboto } from '@/utils/fonts';
 /** Utils */
 import { formatToUSD } from '@/utils/utils';
 import { StorePolicies } from '@/components/store-policies/storePolicies';
-import { useCartStore } from '@/zustand/cart/cartStore';
-import { CartItem } from '@/zustand/cart/cartStore';
 import { toast } from 'react-hot-toast';
-import { ProductVariant } from '@/graphql/generated/graphql';
+import { CartLineInput, ProductVariant } from '@/graphql/generated/graphql';
+import { AddItemToCartMutationDoc } from './mutation';
 
 export default function ProductPage() {
-  // const cartID = useCartStore((state) => state.cartID);
   const router = useRouter();
   const { product } = router.query;
-  const addToCart = useCartStore((state) => state.addToCart);
 
-  const productData = useGraphQL(getProductDataByHandleQueryDoc, {
+  const productData = useGraphQL(getProductDataByHandleQueryDoc, true, {
     productHandle: String(product),
   });
 
-  const [currentSize, setCurrentSize] = useState<CartItem>({
-    name: '',
-    size: '',
-    productID: '',
-    variantID: '',
-    price: 0,
-    quantity: 0,
-    imageUrl: '',
-    altText: '',
-  } as CartItem);
-
   const [errorStyle, setErrorStyle] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Pick a size');
+  const [activeRequest, setActiveRequest] = useState(false);
 
+  let size = '';
   console.log({ productData });
 
   const sizeTiles = productData.data?.product?.variants.edges.map((element) => {
@@ -53,23 +41,12 @@ export default function ProductPage() {
       <button
         key={element.node.id}
         className={
-          currentSize.size === element.node.title
+          size === element.node.title //currentSize.size (need to get selected size value here)
             ? `${styles['size-tile']} ${styles['size-tile-selected']}`
             : styles['size-tile']
         }
         onClick={() => {
-          setCurrentSize((currentSize) => ({
-            ...currentSize,
-            name: productData.data?.product?.title as string,
-            size: element.node.title,
-            productID: productData.data?.product?.id as string,
-            variantID: element.node.id,
-            price: productData.data?.product?.priceRange.minVariantPrice
-              .amount as number,
-            imageUrl: productData.data?.product?.images.edges[0].node.url,
-            // variants: productData.data?.product?.variants.edges,
-          }));
-          setErrorStyle(false);
+          size = element.node.title;
         }}
       >
         <span className={styles['size-tile-text']}>{element.node.title}</span>
@@ -78,35 +55,36 @@ export default function ProductPage() {
   });
 
   function handleAddToCart() {
-    if (currentSize.size == '') {
+    if (size === '') {
+      //(need to get selected size value here)
       setErrorStyle(true);
       return;
     }
 
-    const response = addToCart(
-      currentSize.productID,
-      currentSize.variantID,
-      currentSize.name,
-      currentSize.price,
-      currentSize.imageUrl,
-      currentSize.altText,
-      currentSize.size
-    );
+    // const response = addToCart(
+    //   currentSize.productID,
+    //   currentSize.variantID,
+    //   currentSize.name,
+    //   currentSize.price,
+    //   currentSize.imageUrl,
+    //   currentSize.altText,
+    //   currentSize.size
+    // );
 
-    if (response.success === false) {
-      toast.error('Cannot add more than 3 of a single product', {
-        style: {
-          fontFamily: `${font_roboto.style.fontFamily}`,
-        },
-      });
-      //do no more stuff later
-    } else {
-      toast.success('Added to cart!', {
-        style: {
-          fontFamily: `${font_roboto.style.fontFamily}`,
-        },
-      });
-    }
+    // if (response.success === false) {
+    //   toast.error('Cannot add more than 3 of a single product', {
+    //     style: {
+    //       fontFamily: `${font_roboto.style.fontFamily}`,
+    //     },
+    //   });
+    //   //do no more stuff later
+    // } else {
+    //   toast.success('Added to cart!', {
+    //     style: {
+    //       fontFamily: `${font_roboto.style.fontFamily}`,
+    //     },
+    //   });
+    // }
   }
 
   return (

@@ -10,8 +10,14 @@ import Header from '@/components/header/header';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import ProductCollection from '@/components/product-collection/productCollection';
+import { useGraphQL } from '@/graphql/use-gql';
+import { createCartMutationDoc } from './products/mutation';
 
 export default function Home() {
+  // const existingCartID = checkForExistingCart();
+  // const CART = useGraphQL(createCartMutationDoc, existingCartID === null);
+
+  // console.log(CART);
   return (
     <>
       <Header title={'HYPE CLUB'} />

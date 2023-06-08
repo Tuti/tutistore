@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function ProductCollection(props: Props) {
-  const collectionData = useGraphQL(getCollectionByHandleQueryDoc, {
+  const collectionData = useGraphQL(getCollectionByHandleQueryDoc, true, {
     handle: titleToHandle(props.collectionName),
     numProducts: props.numberOfItems,
   });
